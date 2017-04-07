@@ -5,21 +5,25 @@ using UnityEngine;
 public class CharacterScript : MonoBehaviour
 {
 
-    private int selectedCharacter;
+    public int selectedCharacter;
     GameObject player, character;
-    public float speed;
+    public float speed, jumpforce;
     private Rigidbody2D rigidbody2D;
     // Use this for initialization
     void Start ()
     {
         player = GameObject.Find("hud_1");
         rigidbody2D = GetComponent<Rigidbody2D>();
+        selectedCharacter = 1;
+
     }
 	
+    // 1. jord, 2. luft, 3. ild, 4. Vand.
+
 	// Update is called once per frame
 	void Update () {
 
-        if (Input.GetKey(KeyCode.LeftArrow))
+        /*if (Input.GetKey(KeyCode.LeftArrow))
         {
             Debug.Log("Moving Left");
             gameObject.transform.position += new Vector3(-speed * Time.deltaTime , 0, 0);
@@ -31,11 +35,11 @@ public class CharacterScript : MonoBehaviour
             Debug.Log("Moving Right");
             gameObject.transform.position += new Vector3(speed * Time.deltaTime, 0, 0);
             // GlobalVariables.placement = gameObject.transform.position;
-        }
+        }*/
 
-        /*if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (selectedCharacter < 3)
+            if (selectedCharacter < 4)
                 selectedCharacter++;
             else
                 selectedCharacter = 1;
@@ -45,14 +49,14 @@ public class CharacterScript : MonoBehaviour
             if (Input.GetKey(KeyCode.LeftArrow))
             {
                 Debug.Log("Moving Left");
-                gameObject.transform.position += new Vector3(-speed * 2, 0, 0);
+                gameObject.transform.position += new Vector3(-speed * 0.7f * Time.deltaTime, 0, 0);
                 //GlobalVariables.placement = gameObject.transform.position;
             }
 
             if (Input.GetKey(KeyCode.RightArrow))
             {
                 Debug.Log("Moving Right");
-                gameObject.transform.position += new Vector3(speed * 2, 0, 0);
+                gameObject.transform.position += new Vector3(speed * 0.7f * Time.deltaTime, 0, 0);
                // GlobalVariables.placement = gameObject.transform.position;
             }
         }
@@ -64,22 +68,22 @@ public class CharacterScript : MonoBehaviour
             if (Input.GetKey(KeyCode.LeftArrow))
             {
                 Debug.Log("Moving Left");
-                character.transform.position += new Vector3(-speed, 0, 0);
+                gameObject.transform.position += new Vector3(-speed*2 * Time.deltaTime, 0, 0);
                // GlobalVariables.placement = gameObject.transform.position;
             }
 
             if (Input.GetKey(KeyCode.RightArrow))
             {
                 Debug.Log("Moving Right");
-                character.transform.position += new Vector3(speed, 0, 0);
+                gameObject.transform.position += new Vector3(speed*2* Time.deltaTime, 0, 0);
                // GlobalVariables.placement = gameObject.transform.position;
             }
 
-            //if (Input.GetKeyDown(KeyCode.UpArrow) & grounded)
-            //{
-            //   gameObject.transform.position += new Vector3(0, jumpspeedp2, 0);
-            //    //rigidbody.AddForce(transform.up * jumpspeedp2 * 100);
-            //}
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                //gameObject.transform.position += new Vector3(0, jumpforce, 0);
+                //rigidbody2D.AddForce(transform.up * jumpforce * 100);
+            }
 
         }
         else if (selectedCharacter == 3)
@@ -88,7 +92,7 @@ public class CharacterScript : MonoBehaviour
             if (Input.GetKey(KeyCode.LeftArrow))
             {
                 Debug.Log("Moving Left");
-                gameObject.transform.position += new Vector3(-speed, 0, 0);
+                gameObject.transform.position += new Vector3(-speed * Time.deltaTime, 0, 0);
                // GlobalVariables.placement = gameObject.transform.position;
 
             }
@@ -96,9 +100,27 @@ public class CharacterScript : MonoBehaviour
             if (Input.GetKey(KeyCode.RightArrow))
             {
                 Debug.Log("Moving Right");
-                gameObject.transform.position += new Vector3(speed, 0, 0);
+                gameObject.transform.position += new Vector3(speed * Time.deltaTime, 0, 0);
               //  GlobalVariables.placement = gameObject.transform.position;
             }
-        }*/
+        }
+        else if (selectedCharacter == 4)
+        {
+
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                Debug.Log("Moving Left");
+                gameObject.transform.position += new Vector3(-speed * Time.deltaTime, 0, 0);
+                // GlobalVariables.placement = gameObject.transform.position;
+
+            }
+
+            if (Input.GetKey(KeyCode.RightArrow))
+            {
+                Debug.Log("Moving Right");
+                gameObject.transform.position += new Vector3(speed * Time.deltaTime, 0, 0);
+                //  GlobalVariables.placement = gameObject.transform.position;
+            }
+        }
     }
 }
