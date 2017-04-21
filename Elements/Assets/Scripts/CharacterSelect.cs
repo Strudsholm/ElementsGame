@@ -6,6 +6,9 @@ using UnityEngine;
 public static class GlobalVar
 {
     public static bool facingright { get; set; }
+    public static int charSelected { get; set; }
+    public static float platformSpeed { get; set; }
+    public static bool platformFreeze { get; set; }
 }
 
 
@@ -38,10 +41,10 @@ public class CharacterSelect : MonoBehaviour
         right = new Vector3(1f, 1f, 1f);
         left = new Vector3(-1f, 1f, 1f);
 
-        s1 = Resources.LoadAll<Sprite>("hud_1");
-        s2 = Resources.LoadAll<Sprite>("hud_2");
-        s3 = Resources.LoadAll<Sprite>("hud_3");
-        s4 = Resources.LoadAll<Sprite>("hud_4");
+        s1 = Resources.LoadAll<Sprite>("characters");
+        s2 = Resources.LoadAll<Sprite>("characters");
+        s3 = Resources.LoadAll<Sprite>("characters");
+        s4 = Resources.LoadAll<Sprite>("characters");
 
         animator = GetComponent<Animator>();
 
@@ -55,6 +58,7 @@ public class CharacterSelect : MonoBehaviour
         // we are accessing the SpriteRenderer that is attached to the Gameobject
         /*if (spriteRenderer.sprite == null) // if the sprite on spriteRenderer is null then
             spriteRenderer.sprite = (Sprite) s2[0]; // set the sprite to sprite1*/
+
     }
 
     // Update is called once per frame
@@ -71,10 +75,7 @@ public class CharacterSelect : MonoBehaviour
             transform.localScale = right;
         }
 
-        if (GlobalVar.facingright)
-        {
-            
-        }
+      
 
         grounded = Physics2D.OverlapCircle(groundchecker.transform.position, 0.2f, groundlayer);
 
@@ -84,6 +85,8 @@ public class CharacterSelect : MonoBehaviour
             if (selectedCharacter < 4)
             {
                 selectedCharacter++;
+
+                GlobalVar.charSelected = selectedCharacter;
                 //animator.SetInteger("player", selectedCharacter);
             }
 
@@ -91,6 +94,7 @@ public class CharacterSelect : MonoBehaviour
             {
                 selectedCharacter = 1;
                 //animator.SetInteger("player", selectedCharacter);
+                GlobalVar.charSelected = selectedCharacter;
             }
 
 
@@ -135,7 +139,7 @@ public class CharacterSelect : MonoBehaviour
         if (selectedCharacter == 1)
         {
             Debug.Log("Change sprite");
-            spriteRenderer.sprite = (Sprite)s1[0];
+            spriteRenderer.sprite = (Sprite)s1[62];
             if (!grounded)
             {
                 //spriteRenderer.sprite = (Sprite) s1[6];
@@ -144,7 +148,7 @@ public class CharacterSelect : MonoBehaviour
         else if (selectedCharacter == 2)
         {
             Debug.Log("Change sprite");
-            spriteRenderer.sprite = (Sprite)s2[0];
+            spriteRenderer.sprite = (Sprite)s2[60];
             if (!grounded)
             {
                 //spriteRenderer.sprite = (Sprite) s2[6];
@@ -155,7 +159,7 @@ public class CharacterSelect : MonoBehaviour
         else if (selectedCharacter == 3)
         {
             Debug.Log("Change sprite");
-            spriteRenderer.sprite = (Sprite)s3[0];
+            spriteRenderer.sprite = (Sprite)s3[26];
             if (!grounded)
             {
                 //spriteRenderer.sprite = (Sprite) s3[6];
@@ -165,7 +169,7 @@ public class CharacterSelect : MonoBehaviour
         else if (selectedCharacter == 4)
         {
             Debug.Log("Change sprite");
-            spriteRenderer.sprite = (Sprite)s4[0];
+            spriteRenderer.sprite = (Sprite)s4[24];
             if (!grounded)
             {
                 //spriteRenderer.sprite = (Sprite)s4[6];

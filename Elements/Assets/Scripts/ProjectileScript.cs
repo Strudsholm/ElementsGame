@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,8 +8,10 @@ public class ProjectileScript : MonoBehaviour
 
 
     public float speed;
-
+    private float freezeTime;
+    public float freezeDelay = 1000;
     private Rigidbody2D rigidbody2D;
+    public bool freeze = false;
 	// Use this for initialization
 	void Start ()
 	{
@@ -28,8 +31,32 @@ public class ProjectileScript : MonoBehaviour
     {
         if (other.tag == "Obstacle")
         {
-            Destroy(other.gameObject);
+            if (GlobalVar.charSelected == 4)
+            {
+                Destroy(other.gameObject);
+            }
+            
+            
         }
+        if (other.tag == "Platform" && GlobalVar.charSelected == 3)
+        {
+            if (freezeTime == 0)
+            {
+                freezeTime = Time.fixedTime;
+                freeze = true;
+                GlobalVar.platformSpeed = 0;
+            }
+
+            if (freezeTime + freezeDelay > Time.fixedTime)
+            {
+                freeze = false;
+                GlobalVar.platformSpeed = 1;
+            }
+
+            GlobalVar.platformFreeze = true;
+            
+        }
+
         Destroy(gameObject);
     }
 }
