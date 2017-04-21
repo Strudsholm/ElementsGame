@@ -1,6 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+public static class GlobalVar
+{
+    public static bool facingright { get; set; }
+}
+
 
 public class CharacterSelect : MonoBehaviour
 {
@@ -20,11 +27,16 @@ public class CharacterSelect : MonoBehaviour
     private Rigidbody2D rigidbody2;
 
     public Transform firepoint;
-    public GameObject projectile;
+    public GameObject iceProjectile;
+    public GameObject fireProjectile;
 
+    private Vector3 left, right;
     // Use this for initialization
     private void Start()
     {
+
+        right = new Vector3(1f, 1f, 1f);
+        left = new Vector3(-1f, 1f, 1f);
 
         s1 = Resources.LoadAll<Sprite>("hud_1");
         s2 = Resources.LoadAll<Sprite>("hud_2");
@@ -48,6 +60,22 @@ public class CharacterSelect : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            GlobalVar.facingright = false;
+            transform.localScale = left;
+        }
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            GlobalVar.facingright = true;
+            transform.localScale = right;
+        }
+
+        if (GlobalVar.facingright)
+        {
+            
+        }
+
         grounded = Physics2D.OverlapCircle(groundchecker.transform.position, 0.2f, groundlayer);
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -93,12 +121,12 @@ public class CharacterSelect : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.UpArrow) && grounded && selectedCharacter != 2)
         {
-           
+
             //rigidbody.AddForce(transform.up * jumpforce * 100);
             rigidbody2.velocity = new Vector2(rigidbody2.velocity.x, 0);
             rigidbody2.AddForce(new Vector3(0, 100 * jumpForce, 0));
         }
-       
+
 
 
 
@@ -146,8 +174,14 @@ public class CharacterSelect : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Return))
         {
-
-            Instantiate(projectile, firepoint.position, firepoint.rotation);
+            if (selectedCharacter == 3)
+            {
+                Instantiate(iceProjectile, firepoint.position, firepoint.rotation);
+            }
+            if (selectedCharacter == 4)
+            {
+                Instantiate(fireProjectile, firepoint.position, firepoint.rotation);
+            }
         }
 
     }
