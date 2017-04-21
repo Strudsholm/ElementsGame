@@ -13,6 +13,10 @@ public class ProjectileScript : MonoBehaviour
 	void Start ()
 	{
 	    rigidbody2D = GetComponent<Rigidbody2D>();
+	    if (!GlobalVar.facingright)
+	    {
+	        speed = -speed;
+	    }
 	}
 	
 	// Update is called once per frame
