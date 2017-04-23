@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public static class GlobalVar
 {
@@ -19,6 +20,7 @@ public class CharacterSelect : MonoBehaviour
 
     public float speed;
     public float jumpForce;
+    public float punchForce;
 
     private Sprite[] s1, s2, s3, s4;
     private SpriteRenderer spriteRenderer;
@@ -34,6 +36,8 @@ public class CharacterSelect : MonoBehaviour
     public Transform firepoint;
     public GameObject iceProjectile;
     public GameObject fireProjectile;
+
+    private bool gameover, hasKey;
 
     private Vector3 left, right;
     // Use this for initialization
@@ -56,6 +60,10 @@ public class CharacterSelect : MonoBehaviour
 
         groundchecker = GameObject.Find("Playerground");
 
+        gameover = false;
+        Debug.Log("haskeyfalse");
+        hasKey = false;
+
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         // we are accessing the SpriteRenderer that is attached to the Gameobject
         /*if (spriteRenderer.sprite == null) // if the sprite on spriteRenderer is null then
@@ -77,7 +85,7 @@ public class CharacterSelect : MonoBehaviour
             transform.localScale = right;
         }
 
-      
+
 
         grounded = Physics2D.OverlapCircle(groundchecker.transform.position, 0.2f, groundlayer);
 
@@ -178,11 +186,13 @@ public class CharacterSelect : MonoBehaviour
             }
 
         }
+        
         if (Input.GetKeyDown(KeyCode.Z))
         {
             if (selectedCharacter == 1)
             {
-                
+                Debug.Log("punchman");
+                rigidbody2.AddForce(new Vector2(punchForce * 100, 0));
             }
             if (selectedCharacter == 3)
             {
@@ -198,12 +208,20 @@ public class CharacterSelect : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Key")
-        {            
-                Destroy(other.gameObject);
+        {
+            Destroy(other.gameObject);
+            hasKey = true;
         }
 
+        if (other.tag == "Rock" && rigidbody2.velocity.x > 4)
+        {
+            Destroy(other.gameObject);
+        }
 
-
+        if (other.tag == "Door" && hasKey)
+        {
+            SceneManager.LoadScene("Game_over");
+        }
     }
 }
 

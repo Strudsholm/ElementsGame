@@ -9,12 +9,14 @@ public class CharacterScript : MonoBehaviour
     GameObject player, character;
     public float speed, jumpforce;
     private Rigidbody2D rigidbody2D;
+    private bool gameover;
     // Use this for initialization
     void Start ()
     {
         player = GameObject.Find("hud_1");
         rigidbody2D = GetComponent<Rigidbody2D>();
         selectedCharacter = 1;
+        
 
     }
 	
