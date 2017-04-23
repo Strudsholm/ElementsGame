@@ -8,8 +8,7 @@ public class ProjectileScript : MonoBehaviour
 
 
     public float speed;
-    private float freezeTime;
-    public float freezeDelay = 1000;
+    
     private Rigidbody2D rigidbody2D;
     public bool freeze = false;
 	// Use this for initialization
@@ -26,7 +25,15 @@ public class ProjectileScript : MonoBehaviour
 	void Update () {
         rigidbody2D.velocity = new Vector2(speed, rigidbody2D.velocity.y);
 	    rigidbody2D.rotation = 90;
-	}
+
+        /*Debug.Log("Freeze time: " + freezeTime + freezeDelay + " - " + Time.fixedTime);
+        if (freezeTime + freezeDelay < Time.fixedTime)
+        {
+            Debug.Log("jdksl");
+            GlobalVar.isFrozen = false;
+            //GlobalVar.platformSpeed = 1;
+        }*/
+    }
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Obstacle")
@@ -40,18 +47,16 @@ public class ProjectileScript : MonoBehaviour
         }
         if (other.tag == "Platform" && GlobalVar.charSelected == 3)
         {
-            if (freezeTime == 0)
+            /*if (freezeTime == 0)
             {
-                freezeTime = Time.fixedTime;
-                freeze = true;
-                GlobalVar.platformSpeed = 0;
-            }
+                Debug.Log("workz?");*/
+                GlobalVar.freezetime = Time.fixedTime;
+            
+                GlobalVar.isFrozen = true;
+               // GlobalVar.platformSpeed = 0;
+            //}
 
-            if (freezeTime + freezeDelay > Time.fixedTime)
-            {
-                freeze = false;
-                GlobalVar.platformSpeed = 1;
-            }
+            
 
             GlobalVar.platformFreeze = true;
             

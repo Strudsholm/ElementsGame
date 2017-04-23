@@ -9,6 +9,8 @@ public static class GlobalVar
     public static int charSelected { get; set; }
     public static float platformSpeed { get; set; }
     public static bool platformFreeze { get; set; }
+    public static bool isFrozen { get; set; }
+    public static float freezetime { get; set; }
 }
 
 
@@ -138,7 +140,7 @@ public class CharacterSelect : MonoBehaviour
 
         if (selectedCharacter == 1)
         {
-            Debug.Log("Change sprite");
+            //Debug.Log("Change sprite");
             spriteRenderer.sprite = (Sprite)s1[62];
             if (!grounded)
             {
@@ -147,7 +149,7 @@ public class CharacterSelect : MonoBehaviour
         }
         else if (selectedCharacter == 2)
         {
-            Debug.Log("Change sprite");
+            //Debug.Log("Change sprite");
             spriteRenderer.sprite = (Sprite)s2[60];
             if (!grounded)
             {
@@ -158,7 +160,7 @@ public class CharacterSelect : MonoBehaviour
         }
         else if (selectedCharacter == 3)
         {
-            Debug.Log("Change sprite");
+            //Debug.Log("Change sprite");
             spriteRenderer.sprite = (Sprite)s3[26];
             if (!grounded)
             {
@@ -168,7 +170,7 @@ public class CharacterSelect : MonoBehaviour
         }
         else if (selectedCharacter == 4)
         {
-            Debug.Log("Change sprite");
+            //Debug.Log("Change sprite");
             spriteRenderer.sprite = (Sprite)s4[24];
             if (!grounded)
             {
@@ -176,8 +178,12 @@ public class CharacterSelect : MonoBehaviour
             }
 
         }
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
+            if (selectedCharacter == 1)
+            {
+                
+            }
             if (selectedCharacter == 3)
             {
                 Instantiate(iceProjectile, firepoint.position, firepoint.rotation);
@@ -187,6 +193,16 @@ public class CharacterSelect : MonoBehaviour
                 Instantiate(fireProjectile, firepoint.position, firepoint.rotation);
             }
         }
+
+    }
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Key")
+        {            
+                Destroy(other.gameObject);
+        }
+
+
 
     }
 }

@@ -48,14 +48,14 @@ public class CharacterScript : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.LeftArrow))
             {
-                Debug.Log("Moving Left");
+                //Debug.Log("Moving Left");
                 gameObject.transform.position += new Vector3(-speed * 0.7f * Time.deltaTime, 0, 0);
                 //GlobalVariables.placement = gameObject.transform.position;
             }
 
             if (Input.GetKey(KeyCode.RightArrow))
             {
-                Debug.Log("Moving Right");
+                //Debug.Log("Moving Right");
                 gameObject.transform.position += new Vector3(speed * 0.7f * Time.deltaTime, 0, 0);
                // GlobalVariables.placement = gameObject.transform.position;
             }
@@ -67,14 +67,14 @@ public class CharacterScript : MonoBehaviour
 
             if (Input.GetKey(KeyCode.LeftArrow))
             {
-                Debug.Log("Moving Left");
+                //Debug.Log("Moving Left");
                 gameObject.transform.position += new Vector3(-speed*2 * Time.deltaTime, 0, 0);
                // GlobalVariables.placement = gameObject.transform.position;
             }
 
             if (Input.GetKey(KeyCode.RightArrow))
             {
-                Debug.Log("Moving Right");
+                //Debug.Log("Moving Right");
                 gameObject.transform.position += new Vector3(speed*2* Time.deltaTime, 0, 0);
                // GlobalVariables.placement = gameObject.transform.position;
             }
@@ -91,7 +91,7 @@ public class CharacterScript : MonoBehaviour
 
             if (Input.GetKey(KeyCode.LeftArrow))
             {
-                Debug.Log("Moving Left");
+               // Debug.Log("Moving Left");
                 gameObject.transform.position += new Vector3(-speed * Time.deltaTime, 0, 0);
                // GlobalVariables.placement = gameObject.transform.position;
 
@@ -99,7 +99,7 @@ public class CharacterScript : MonoBehaviour
 
             if (Input.GetKey(KeyCode.RightArrow))
             {
-                Debug.Log("Moving Right");
+               // Debug.Log("Moving Right");
                 gameObject.transform.position += new Vector3(speed * Time.deltaTime, 0, 0);
               //  GlobalVariables.placement = gameObject.transform.position;
             }
@@ -109,7 +109,7 @@ public class CharacterScript : MonoBehaviour
 
             if (Input.GetKey(KeyCode.LeftArrow))
             {
-                Debug.Log("Moving Left");
+               // Debug.Log("Moving Left");
                 gameObject.transform.position += new Vector3(-speed * Time.deltaTime, 0, 0);
                 // GlobalVariables.placement = gameObject.transform.position;
 
@@ -117,7 +117,7 @@ public class CharacterScript : MonoBehaviour
 
             if (Input.GetKey(KeyCode.RightArrow))
             {
-                Debug.Log("Moving Right");
+                //Debug.Log("Moving Right");
                 gameObject.transform.position += new Vector3(speed * Time.deltaTime, 0, 0);
                 //  GlobalVariables.placement = gameObject.transform.position;
             }

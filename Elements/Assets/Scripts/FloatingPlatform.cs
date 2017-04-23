@@ -5,10 +5,12 @@ using UnityEngine;
 public class FloatingPlatform : MonoBehaviour
 {
 
+    private float freezeTime;
+    public float freezeDelay = 10;
     public float platformSpeedLocal { get; set; }
     public Rigidbody2D rigidbody2D { get; set; }
 
-    
+
 
     // Use this for initialization
     void Start()
@@ -16,32 +18,52 @@ public class FloatingPlatform : MonoBehaviour
         rigidbody2D = GetComponent<Rigidbody2D>();
 
         platformSpeedLocal = -1;
-        GlobalVar.platformSpeed = - 1;
+        GlobalVar.platformSpeed = 1;
         GlobalVar.platformFreeze = false;
-
+        GlobalVar.isFrozen = false;
+        rigidbody2D.velocity = new Vector2(GlobalVar.platformSpeed, 0);
     }
 
     // Update is called once per frame
     void Update()
     {
-        rigidbody2D.velocity = new Vector2(GlobalVar.platformSpeed, 0);
-        if (transform.position.x < -3f)
+        
+        if (GlobalVar.freezetime + 5 < Time.fixedTime && GlobalVar.isFrozen)
         {
-            GlobalVar.platformSpeed = 1;
-            //GlobalVar.platformSpeed = platformSpeedLocal;
-            //rigidbody2D.velocity = new Vector2(platformSpeed, 0);
+            
+            GlobalVar.isFrozen = false;
+            GlobalVar.platformFreeze = false;
+            rigidbody2D.velocity = new Vector2(GlobalVar.platformSpeed, 0);
+            //GlobalVar.platformSpeed = 1;
         }
-        if (transform.position.x > 2.2f)
+
+        if (!GlobalVar.isFrozen)
         {
-            GlobalVar.platformSpeed = -1;
-            //GlobalVar.platformSpeed = platformSpeedLocal;
-            //rigidbody2D.velocity = new Vector2(platformSpeed, 0);
+            
+            if (transform.position.x < -3f)
+            {
+                //GlobalVar.platformSpeed = 1;
+
+                rigidbody2D.velocity = new Vector2(GlobalVar.platformSpeed, 0);
+                //GlobalVar.platformSpeed = platformSpeedLocal;
+                //rigidbody2D.velocity = new Vector2(platformSpeed, 0);
+            }
+            if (transform.position.x > 1.8f)
+            {
+                //GlobalVar.platformSpeed = -1;
+
+                rigidbody2D.velocity = new Vector2(-GlobalVar.platformSpeed, 0);
+                //GlobalVar.platformSpeed = platformSpeedLocal;
+                //rigidbody2D.velocity = new Vector2(platformSpeed, 0);
+            }
         }
-        if (transform.position.y < 1.5f)
+        else
         {
-            Destroy(gameObject);
+            rigidbody2D.velocity = new Vector2(0,0);
         }
-       
+
+
+        
 
 
     }
