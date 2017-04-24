@@ -61,6 +61,22 @@ public class ProjectileScript : MonoBehaviour
             GlobalVar.platformFreeze = true;
             
         }
+        if (other.tag == "PlatformY" && GlobalVar.charSelected == 3)
+        {
+            /*if (freezeTime == 0)
+            {
+                Debug.Log("workz?");*/
+            GlobalVar.freezetime = Time.fixedTime;
+
+            GlobalVar.YisFrozen = true;
+            // GlobalVar.platformSpeed = 0;
+            //}
+
+
+
+            GlobalVar.YplatformFreeze = true;
+
+        }
 
         Destroy(gameObject);
     }

@@ -10,7 +10,9 @@ public static class GlobalVar
     public static int charSelected { get; set; }
     public static float platformSpeed { get; set; }
     public static bool platformFreeze { get; set; }
+    public static bool YplatformFreeze { get; set; }
     public static bool isFrozen { get; set; }
+    public static bool YisFrozen { get; set; }
     public static float freezetime { get; set; }
 }
 
