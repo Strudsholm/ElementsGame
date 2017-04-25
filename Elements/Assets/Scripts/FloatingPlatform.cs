@@ -13,6 +13,9 @@ public class FloatingPlatform : MonoBehaviour
     public float yPlatformSpeed;
     public float xPlatformSpeed;
 
+    public GameObject respawnObject;
+    private float deathTime;
+   
 
 
     // Use this for initialization
@@ -24,7 +27,10 @@ public class FloatingPlatform : MonoBehaviour
         GlobalVar.platformSpeed = xPlatformSpeed;
         GlobalVar.platformFreeze = false;
         GlobalVar.isFrozen = false;
+        GlobalVar.platformxIsActive = true;
         rigidbody2D.velocity = new Vector2(GlobalVar.platformSpeed, 0);
+        //platformDestroyed = false;
+
     }
 
     // Update is called once per frame
@@ -35,7 +41,7 @@ public class FloatingPlatform : MonoBehaviour
 
         if (GlobalVar.freezetime + 5 < Time.fixedTime && GlobalVar.isFrozen)
         {
-            Debug.Log("kkkk" + xPlatformSpeed);
+           
             GlobalVar.isFrozen = false;
             GlobalVar.platformFreeze = false;
             rigidbody2D.velocity = new Vector2(xPlatformSpeed, yPlatformSpeed);
@@ -67,7 +73,6 @@ public class FloatingPlatform : MonoBehaviour
             rigidbody2D.velocity = new Vector2(0,0);
         }
 
-
         
 
 
@@ -79,7 +84,10 @@ public class FloatingPlatform : MonoBehaviour
         {
             if (GlobalVar.platformFreeze == false)
             {
+                GlobalVar.platformxIsActive = false;
+                GlobalVar.platformXrespawnTimer = Time.fixedTime;
                 Destroy(gameObject);
+                
             }
 
 

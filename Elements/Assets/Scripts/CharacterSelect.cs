@@ -14,6 +14,10 @@ public static class GlobalVar
     public static bool isFrozen { get; set; }
     public static bool YisFrozen { get; set; }
     public static float freezetime { get; set; }
+    public static bool platformxIsActive { get; set; }
+    public static bool platformyIsActive { get; set; }
+    public static  float platformXrespawnTimer { get; set; }
+    public static  float platformYrespawnTimer { get; set; }
 }
 
 
