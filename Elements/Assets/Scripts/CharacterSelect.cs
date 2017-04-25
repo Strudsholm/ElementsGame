@@ -2,10 +2,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public static class GlobalVar
 {
     public static bool facingright { get; set; }
+    public static int charSelected { get; set; }
+    public static float platformSpeed { get; set; }
+    public static bool platformFreeze { get; set; }
+    public static bool YplatformFreeze { get; set; }
+    public static bool isFrozen { get; set; }
+    public static bool YisFrozen { get; set; }
+    public static float freezetime { get; set; }
+    public static bool platformxIsActive { get; set; }
+    public static bool platformyIsActive { get; set; }
+    public static  float platformXrespawnTimer { get; set; }
+    public static  float platformYrespawnTimer { get; set; }
 }
 
 
@@ -14,6 +26,7 @@ public class CharacterSelect : MonoBehaviour
 
     public float speed;
     public float jumpForce;
+    public float punchForce;
 
     private Sprite[] s1, s2, s3, s4;
     private SpriteRenderer spriteRenderer;
@@ -30,6 +43,8 @@ public class CharacterSelect : MonoBehaviour
     public GameObject iceProjectile;
     public GameObject fireProjectile;
 
+    private bool gameover, hasKey;
+
     private Vector3 left, right;
     // Use this for initialization
     private void Start()
@@ -38,10 +53,10 @@ public class CharacterSelect : MonoBehaviour
         right = new Vector3(1f, 1f, 1f);
         left = new Vector3(-1f, 1f, 1f);
 
-        s1 = Resources.LoadAll<Sprite>("hud_1");
-        s2 = Resources.LoadAll<Sprite>("hud_2");
-        s3 = Resources.LoadAll<Sprite>("hud_3");
-        s4 = Resources.LoadAll<Sprite>("hud_4");
+        s1 = Resources.LoadAll<Sprite>("characters");
+        s2 = Resources.LoadAll<Sprite>("characters");
+        s3 = Resources.LoadAll<Sprite>("characters");
+        s4 = Resources.LoadAll<Sprite>("characters");
 
         animator = GetComponent<Animator>();
 
@@ -51,10 +66,15 @@ public class CharacterSelect : MonoBehaviour
 
         groundchecker = GameObject.Find("Playerground");
 
+        gameover = false;
+        Debug.Log("haskeyfalse");
+        hasKey = false;
+
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         // we are accessing the SpriteRenderer that is attached to the Gameobject
         /*if (spriteRenderer.sprite == null) // if the sprite on spriteRenderer is null then
             spriteRenderer.sprite = (Sprite) s2[0]; // set the sprite to sprite1*/
+
     }
 
     // Update is called once per frame
@@ -71,10 +91,7 @@ public class CharacterSelect : MonoBehaviour
             transform.localScale = right;
         }
 
-        if (GlobalVar.facingright)
-        {
-            
-        }
+
 
         grounded = Physics2D.OverlapCircle(groundchecker.transform.position, 0.2f, groundlayer);
 
@@ -84,6 +101,8 @@ public class CharacterSelect : MonoBehaviour
             if (selectedCharacter < 4)
             {
                 selectedCharacter++;
+
+                GlobalVar.charSelected = selectedCharacter;
                 //animator.SetInteger("player", selectedCharacter);
             }
 
@@ -91,6 +110,7 @@ public class CharacterSelect : MonoBehaviour
             {
                 selectedCharacter = 1;
                 //animator.SetInteger("player", selectedCharacter);
+                GlobalVar.charSelected = selectedCharacter;
             }
 
 
@@ -134,8 +154,8 @@ public class CharacterSelect : MonoBehaviour
 
         if (selectedCharacter == 1)
         {
-            Debug.Log("Change sprite");
-            spriteRenderer.sprite = (Sprite)s1[0];
+            //Debug.Log("Change sprite");
+            spriteRenderer.sprite = (Sprite)s1[62];
             if (!grounded)
             {
                 //spriteRenderer.sprite = (Sprite) s1[6];
@@ -143,8 +163,8 @@ public class CharacterSelect : MonoBehaviour
         }
         else if (selectedCharacter == 2)
         {
-            Debug.Log("Change sprite");
-            spriteRenderer.sprite = (Sprite)s2[0];
+            //Debug.Log("Change sprite");
+            spriteRenderer.sprite = (Sprite)s2[60];
             if (!grounded)
             {
                 //spriteRenderer.sprite = (Sprite) s2[6];
@@ -154,8 +174,8 @@ public class CharacterSelect : MonoBehaviour
         }
         else if (selectedCharacter == 3)
         {
-            Debug.Log("Change sprite");
-            spriteRenderer.sprite = (Sprite)s3[0];
+            //Debug.Log("Change sprite");
+            spriteRenderer.sprite = (Sprite)s3[26];
             if (!grounded)
             {
                 //spriteRenderer.sprite = (Sprite) s3[6];
@@ -164,16 +184,22 @@ public class CharacterSelect : MonoBehaviour
         }
         else if (selectedCharacter == 4)
         {
-            Debug.Log("Change sprite");
-            spriteRenderer.sprite = (Sprite)s4[0];
+            //Debug.Log("Change sprite");
+            spriteRenderer.sprite = (Sprite)s4[24];
             if (!grounded)
             {
                 //spriteRenderer.sprite = (Sprite)s4[6];
             }
 
         }
-        if (Input.GetKeyDown(KeyCode.Return))
+        
+        if (Input.GetKeyDown(KeyCode.Z))
         {
+            if (selectedCharacter == 1)
+            {
+                Debug.Log("punchman");
+                rigidbody2.AddForce(new Vector2(punchForce * 100, 0));
+            }
             if (selectedCharacter == 3)
             {
                 Instantiate(iceProjectile, firepoint.position, firepoint.rotation);
@@ -184,6 +210,24 @@ public class CharacterSelect : MonoBehaviour
             }
         }
 
+    }
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Key")
+        {
+            Destroy(other.gameObject);
+            hasKey = true;
+        }
+
+        if (other.tag == "Rock" && rigidbody2.velocity.x > 4)
+        {
+            Destroy(other.gameObject);
+        }
+
+        if (other.tag == "Door" && hasKey)
+        {
+            SceneManager.LoadScene("Game_over");
+        }
     }
 }
 
