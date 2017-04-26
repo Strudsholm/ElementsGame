@@ -192,13 +192,13 @@ public class CharacterSelect : MonoBehaviour
             }
 
         }
-        
+        Debug.Log(rigidbody2.velocity.x);
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            if (selectedCharacter == 1)
+            if (selectedCharacter == 1 && rigidbody2.velocity.x == 0)
             {
                 Debug.Log("punchman");
-                rigidbody2.AddForce(new Vector2(punchForce * 100, 0));
+                rigidbody2.AddForce(new Vector2(punchForce * 100, 0.1f));
             }
             if (selectedCharacter == 3)
             {
@@ -219,7 +219,7 @@ public class CharacterSelect : MonoBehaviour
             hasKey = true;
         }
 
-        if (other.tag == "Rock" && rigidbody2.velocity.x > 4)
+        if (other.tag == "Rock" && rigidbody2.velocity.x > 3)
         {
             Destroy(other.gameObject);
         }

@@ -58,4 +58,22 @@ public class yFloatingPlatform : MonoBehaviour {
             rigidbody2D.velocity = new Vector2(0, 0);
         }
     }
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "spiller")
+        {
+            if (GlobalVar.YplatformFreeze == false)
+            {
+                GlobalVar.platformyIsActive = false;
+                GlobalVar.platformYrespawnTimer = Time.fixedTime;
+                Destroy(gameObject);
+
+            }
+
+
+        }
+
+
+
+    }
 }

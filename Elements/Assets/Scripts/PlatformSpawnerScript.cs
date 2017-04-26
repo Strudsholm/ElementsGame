@@ -6,7 +6,7 @@ public class PlatformSpawnerScript : MonoBehaviour
 {
 
 
-    public GameObject platform;
+    public GameObject respawnObjectY;
 
     public GameObject respawnObject;
 
@@ -36,21 +36,17 @@ public class PlatformSpawnerScript : MonoBehaviour
             }
         }
 
-        /* if (!GlobalVar.platformyIsActive)
-         {
+        if (!GlobalVar.platformyIsActive)
+        {
 
-             if (timerSat)
-             {
-                 timer = Time.fixedTime;
-                 timerSat = false;
-             }
-             if (timer + 3 < Time.fixedTime)
-             {
-                 Debug.Log("xdxdxdxdxd");
-                 Instantiate(respawnObject, respawnObject.transform.position, respawnObject.transform.rotation);
-                 timerSat = true;
-                 GlobalVar.platformxIsActive = true;
-             }
-         }*/
+            
+            if (GlobalVar.platformYrespawnTimer + 3 < Time.fixedTime)
+            {
+                Debug.Log("xdxdxdxdxd");
+                Instantiate(respawnObjectY, respawnObjectY.transform.position, respawnObjectY.transform.rotation);
+     
+                GlobalVar.platformyIsActive = true;
+            }
+        }
     }
 }
