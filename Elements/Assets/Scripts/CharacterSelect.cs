@@ -67,7 +67,7 @@ public class CharacterSelect : MonoBehaviour
         groundchecker = GameObject.Find("Playerground");
 
         gameover = false;
-        Debug.Log("haskeyfalse");
+       // Debug.Log("haskeyfalse");
         hasKey = false;
 
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
