@@ -210,6 +210,11 @@ public class CharacterSelect : MonoBehaviour
             }
         }
 
+        if (transform.position.y < -1)
+        {
+            SceneManager.LoadScene("Game_over");
+        }
+
     }
     void OnTriggerEnter2D(Collider2D other)
     {
