@@ -11,6 +11,9 @@ public class ProjectileScript : MonoBehaviour
     
     private Rigidbody2D rigidbody2D;
     public bool freeze = false;
+
+    public GameObject iceProj { get; set; }
+    public GameObject fireProj { get; set; }
 	// Use this for initialization
 	void Start ()
 	{
@@ -45,7 +48,7 @@ public class ProjectileScript : MonoBehaviour
             
             
         }
-        if (other.tag == "Platform" && GlobalVar.charSelected == 3)
+        if (other.tag == "Platform" && GlobalVar.charShooting == 3)
         {
             /*if (freezeTime == 0)
             {
@@ -61,7 +64,7 @@ public class ProjectileScript : MonoBehaviour
             GlobalVar.platformFreeze = true;
             
         }
-        if (other.tag == "PlatformY" && GlobalVar.charSelected == 3)
+        if (other.tag == "PlatformY" && GlobalVar.charShooting == 3)
         {
             /*if (freezeTime == 0)
             {
@@ -77,6 +80,7 @@ public class ProjectileScript : MonoBehaviour
             GlobalVar.YplatformFreeze = true;
 
         }
+      
 
         Destroy(gameObject);
     }

@@ -17,6 +17,7 @@ public class yFloatingPlatform : MonoBehaviour {
         rigidbody2D = GetComponent<Rigidbody2D>();
         GlobalVar.YisFrozen = false;
         GlobalVar.YplatformFreeze = false;
+        GlobalVar.platformyIsActive = true;
 
         rigidbody2D.velocity = new Vector2(xPlatformSpeed, yPlatformSpeed);
 

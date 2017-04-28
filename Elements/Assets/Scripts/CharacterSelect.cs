@@ -18,6 +18,8 @@ public static class GlobalVar
     public static bool platformyIsActive { get; set; }
     public static  float platformXrespawnTimer { get; set; }
     public static  float platformYrespawnTimer { get; set; }
+    public static int charShooting { get; set; }
+
 }
 
 
@@ -69,6 +71,7 @@ public class CharacterSelect : MonoBehaviour
         gameover = false;
        // Debug.Log("haskeyfalse");
         hasKey = false;
+
 
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         // we are accessing the SpriteRenderer that is attached to the Gameobject
@@ -202,10 +205,12 @@ public class CharacterSelect : MonoBehaviour
             }
             if (selectedCharacter == 3)
             {
+                GlobalVar.charShooting = 3;
                 Instantiate(iceProjectile, firepoint.position, firepoint.rotation);
             }
             if (selectedCharacter == 4)
             {
+                GlobalVar.charShooting = 4;
                 Instantiate(fireProjectile, firepoint.position, firepoint.rotation);
             }
         }
@@ -230,6 +235,14 @@ public class CharacterSelect : MonoBehaviour
         }
 
         if (other.tag == "Door" && hasKey)
+        {
+            SceneManager.LoadScene("Game_over");
+        }
+        if (other.tag == "Lava" && selectedCharacter != 4)
+        {
+            SceneManager.LoadScene("Game_over");
+        }
+        if (other.tag == "Spikes")
         {
             SceneManager.LoadScene("Game_over");
         }
