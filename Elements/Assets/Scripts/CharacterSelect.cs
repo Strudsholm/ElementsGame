@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public static class GlobalVar
 {
@@ -45,6 +46,13 @@ public class CharacterSelect : MonoBehaviour
     public GameObject iceProjectile;
     public GameObject fireProjectile;
 
+    public Text helpText;
+    public Text scoreText;
+    public Text keyText;
+
+    private int score = 0;
+    private int keys = 0;
+
     private bool gameover, hasKey;
 
     private Vector3 left, right;
@@ -72,6 +80,7 @@ public class CharacterSelect : MonoBehaviour
        // Debug.Log("haskeyfalse");
         hasKey = false;
 
+        
 
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         // we are accessing the SpriteRenderer that is attached to the Gameobject
@@ -83,6 +92,8 @@ public class CharacterSelect : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        scoreText.text = "Score: " + score + "/7";
+        keyText.text = "Keys: " + keys + "/1";
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             GlobalVar.facingright = false;
@@ -94,7 +105,12 @@ public class CharacterSelect : MonoBehaviour
             transform.localScale = right;
         }
 
-
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            Debug.Log("text");
+            helpText.enabled = !helpText.enabled;
+            
+        }
 
         grounded = Physics2D.OverlapCircle(groundchecker.transform.position, 0.2f, groundlayer);
 
@@ -195,7 +211,7 @@ public class CharacterSelect : MonoBehaviour
             }
 
         }
-        Debug.Log(rigidbody2.velocity.x);
+       
         if (Input.GetKeyDown(KeyCode.Z))
         {
             if (selectedCharacter == 1 && rigidbody2.velocity.x == 0)
@@ -227,6 +243,7 @@ public class CharacterSelect : MonoBehaviour
         {
             Destroy(other.gameObject);
             hasKey = true;
+            keys ++;
         }
 
         if (other.tag == "Rock" && rigidbody2.velocity.x > 3)
@@ -245,6 +262,15 @@ public class CharacterSelect : MonoBehaviour
         if (other.tag == "Spikes")
         {
             SceneManager.LoadScene("Game_over");
+        }
+        if (other.tag == "Obstacle")
+        {
+            SceneManager.LoadScene("Game_over");
+        }
+        if (other.tag == "Star")
+        {
+            Destroy(other.gameObject);
+            score ++;
         }
     }
 }
